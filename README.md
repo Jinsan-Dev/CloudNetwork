@@ -17,6 +17,7 @@ Fault Tolerance system: 시스템에 고장이 발생해도 요구되는 기능�
 
 Map/Reduce 처리 중 오류로 인해 해당 record에 대한 작업이 완료되지 않은 경우, 작업중인 워커가 마스터로 해당 record에 대한 sequence 번호를 담은 signal(UDP packet)을 보냄. 마스터는 같은 레코드에서 이 signal을 두 번 받은 경우 모든 워커는 해당 record를 skip하게 됨. 대용량 데이터에서 상대적으로 적은 일부의 record 때문에 계속되는 재실행으로 completion time이 늘어나는 것보다, 결과에 미치는 영향이 미미한 record를 skip하는 것이 더 나은 선택임.
 
+
 ## 2. Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center
 
 #### 2.1. Mesos의 설계 목적
@@ -30,6 +31,7 @@ Map/Reduce 처리 중 오류로 인해 해당 record에 대한 작업이 완료�
 #### 2.3.Resource Offer가 무엇인지? 그리고 이것의 이점은?
 
 메소스의 Master 노드가 slave노드의 사용 가능한 자원 정보를 프레임워크에게 제공, 프레임워크가 자신의 job에 맞는 slave를 택할 수 있도록 함. 이를 통해 메소스를 최대한 simple하게 하고, 프레임워크가 자신에게 더 유리한 선택을 할 수 있게 함.(eg. data locality)
+
 
 ## 3. Dominant Resource Fairness: Fair Allocation of Multiple Resource Types
 
@@ -47,6 +49,7 @@ Strategy proofness : 유저는 필요한 자원보다 더 요구해서 성능이
 
 *위 두 속성이 있어야 max-min fairness 합리적임.
 
+
 ## 4. Delay Scheduling: A Simple Technique for Achieving Locality and Fairness in Cluster Scheduling
 
 #### 4.1. Data locality와 Fairness의 트레이드 오프를 설명하시오.
@@ -56,6 +59,7 @@ Data locality를 만족시키려면 특정 노드로 load가 몰려 fairness가 
 #### 4.2. 스몰 딜레이가 왜 효율이 좋은지?
 
 엄격하게 공평하도록 allocation을 하면 비효율적임. 이를 위해 작업 시작 전 약간의 딜레이를 두어 fairness를 약간 희생해 거의 100%에 가까운 locality 확보.
+
 
 ## 5. CONGA: Distributed Congestion-Aware Load Balancing for Datacenters
 
@@ -72,5 +76,19 @@ per 패킷은 패킷 리오더링을 발생시키고, per 플로우는 속도가
 
 
 ## 6. DCTCP
+
+#### 6.1. Incast가 무엇인가? 왜 데이터 센터에서 중요한가?
+
+incast는 데이터 센터의 다대일 통신 패턴에서 발생하는 TCP 처리량 붕괴를 말한다.
+
+많은 flow가 짧은 시간 내 스위치의 동일한 인터페이스에 쏠리면 스위치 메모리 용량을 넘어 패킷 손실이 발생할 수 있다. 요청을 받은 서버가 시간이 초과 될 경우, 다른 서버에서 응답을 받을 수 있지만, 클라이언트는 나머지 response를 받기 위해 최소 200ms(TCP 타임아웃)는 기다려야 한다.
+
+#### 6.2. Queue build up 문제가 무엇인가? 어떻게 이 문제점을 처리하는가?
+
+short flow가 large flows의 뒤에서 대기하므로 지연 시간이 늘어난다. 이를 위해 작은 버퍼를 써서 큐 딜레이를 줄인다.
+
+
+
+
 
 #### Openflow: Enabling Innovation in Campus Network
