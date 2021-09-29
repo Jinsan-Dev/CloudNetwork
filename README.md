@@ -75,7 +75,7 @@ flowlet이란 flow 보다 작으며 packet단위 보다는 큰 granurarity를 �
 per 패킷은 패킷 리오더링을 발생시키고, per 플로우는 속도가 느려서 엘리펀트 (큰 플로우)와 마우스(작은 플로우) 밸런싱이 안되기 때문에 플로우렛을 사용한다.
 
 
-## 6. DCTCP
+## 6. (Incast) Safe and Effective Fine-grained TCP Retransmissions for Datacenter Communication
 
 #### 6.1. Incast가 무엇인가? 왜 데이터 센터에서 중요한가?
 
