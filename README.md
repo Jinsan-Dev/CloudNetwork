@@ -5,32 +5,7 @@
 클라우드 컴퓨팅 : 자신의 컴퓨터가 아닌, 벤더에서 제공하는 컴퓨터 자원(네트워크, 서버, 스토리지, 애플리케이션, 서비스)을 인터넷을 통해 언제, 어디서나 접근할 수 있는 모델. 컴퓨터 자원을 구매하거나 소유할 필요 없이 필요한 만큼 on-demand로 사용하는 만큼 돈을 주고 쓰기 때문에 수요에 따라 유연하게 사용하는 컴퓨터 자원의 크기를 늘리거나 줄일 수 있음. 또한 벤더쪽에서 관리하기 때문에 유지보수를 신경쓰지 않아도 됨. 
 
 
-## 3. Dominant Resource Fairness: Fair Allocation of Multiple Resource Types (Resource Allocators and Schedulers)
 
-#### 3.1. Max-min fairness와 Weighted Max-min fairness의 차이는?
-
-max-min fairness : 자원을 1/n로 분배하되, task가 평균 이하의 자원을 필요로하는 경우 그 남은 자원을 나머지에 대해 균등하게 분배함. multi-resource에 대해서는 만족시킬 수 없음.
-
-weighted max-min fairness : 그 남은 자원을 각 task의 가중치(dominant resource)에 따라 분배하므로 multi-resource에 대해 fair allocation 가능.
-
-#### 3.2. Sharing guarantee와 Strategy proofness를 설명하시오
-
-Sharing guarantee : 각 유저는 최소한 1/N(평균)의 자원을 받을 수 있으나, 만일 그보다 낮게 요구한다면, 평균보다 낮은 자원을 받는다.
-
-Strategy proofness : 유저는 필요한 자원보다 더 요구해서 성능이 좋아지지 않는다.
-
-*위 두 속성이 있어야 max-min fairness 합리적임.
-
-
-## 4. Delay Scheduling: A Simple Technique for Achieving Locality and Fairness in Cluster Scheduling (Resource Allocators and Schedulers)
-
-#### 4.1. Data locality와 Fairness의 트레이드 오프를 설명하시오.
-
-Data locality를 만족시키려면 특정 노드로 load가 몰려 fairness가 깨지게 됨. fairness를 만족시키려다보면 클러스터 내 노드들 간에 load를 균등하게 주기 위해 task가 분산되고, locality를 만족시키지 못하게 됨.
-
-#### 4.2. 스몰 딜레이가 왜 효율이 좋은지?
-
-엄격하게 공평하도록 allocation을 하면 비효율적임. 이를 위해 작업 시작 전 약간의 딜레이를 두어 fairness를 약간 희생해 거의 100%에 가까운 locality 확보.
 
 
 ## 5. CONGA: Distributed Congestion-Aware Load Balancing for Datacenters (DC Load Balancing)
